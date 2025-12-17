@@ -26,11 +26,20 @@ public class UserController : Controller
         // data annotations and model validation allow the correct input, it helps with xss too.
         if (ModelState.IsValid)
         {
-            model.Username = SanitizeForXss(model.Username);
-            model.Email = SanitizeForXss(model.Email);
-            
-            _databaseService.CreateUser(model.Username, model.Email);
-            ViewBag.Message = "User created successfully!";
+            model.Username = SanitizeForXss(model.Username).Trim();
+            model.Email = SanitizeForXss(model.Email).Trim();
+            try
+            {
+                _databaseService.CreateUser(model.Username, model.Email);
+                ViewBag.Message = "User created successfully!";
+                return View(model);
+                // return RedirectToAction("Create");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Database error: " + ex.Message);
+                return View(model);
+            }
         }
         return View(model);
     }
