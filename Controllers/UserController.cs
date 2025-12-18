@@ -27,7 +27,7 @@ public class UserController : Controller
     [Authorize(Policy = "AdminOnly")]
     public ActionResult Create(UserModel model)
     {
-        if (!IsValidInput(model.Username, "user") || !IsValidInput(model.Email, "email"))
+        if (!IsValidInput(model.Username, "username") || !IsValidInput(model.Email, "email"))
         {
             ModelState.AddModelError("", "Input contains unsafe characters.");
         }
@@ -39,7 +39,7 @@ public class UserController : Controller
             model.HashedPassword = _passwordService.HashPassword(model.Password);
             try
             {
-                _databaseService.CreateUser(model.Username, model.Email, model.Password);
+                _databaseService.CreateUser(model.Username, model.Email, model.HashedPassword);
                 ViewBag.Message = "User created successfully!";
                 return View(model);
                 // return RedirectToAction("Create");

@@ -31,7 +31,7 @@ public class DatabaseService
         return null;
     }
 
-    public async Task<UserModel?> GetUserByEmailAsync(string email)
+    public virtual async Task<UserModel?> GetUserByEmailAsync(string email)
     {
         const string query = "SELECT UserID, Username, Email, Password FROM Users WHERE Email = @Email";
 
