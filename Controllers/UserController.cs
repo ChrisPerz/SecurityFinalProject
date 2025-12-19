@@ -39,6 +39,7 @@ public class UserController : Controller
             model.HashedPassword = _passwordService.HashPassword(model.Password);
             try
             {
+                // Store the hashed password in the database instead of plaintext
                 _databaseService.CreateUser(model.Username, model.Email, model.HashedPassword);
                 ViewBag.Message = "User created successfully!";
                 return View(model);

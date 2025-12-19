@@ -55,7 +55,7 @@ public class DatabaseService
 
         return null;
     }
-    public void CreateUser(string username, string email, string password)
+    public virtual void CreateUser(string username, string email, string password)
     {
         string query = "INSERT INTO Users (Username, Email, Password) VALUES (@Username, @Email, @Password)";
 

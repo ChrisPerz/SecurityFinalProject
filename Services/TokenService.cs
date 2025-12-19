@@ -39,7 +39,9 @@ public class TokenService
         {
             new Claim(JwtRegisteredClaimNames.Sub, userId),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("Role", "admin"),
+            // emit both a simple "Role" claim and the standard ClaimTypes.Role to be compatible with policies and role checks
+            new Claim("Role", "Admin"),
+            new Claim(System.Security.Claims.ClaimTypes.Role, "Admin"),
             new Claim("department", "IT")
         };
         var token = new JwtSecurityToken(
