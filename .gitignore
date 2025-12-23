@@ -70,3 +70,4 @@ packages/
 *.vsix
 
 # End of .gitignore
+.env

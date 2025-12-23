@@ -33,6 +33,17 @@ builder.Services.AddAuthorization((options => {
     })
 );
 
+// test env loading
+DotNetEnv.Env.Load();
+
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+
+Console.WriteLine($"Running in: {environment}");
+
+Console.WriteLine($"Using API Key: {apiKey}");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,3 +67,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
